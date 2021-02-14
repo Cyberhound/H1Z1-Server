@@ -1,6 +1,6 @@
 #ifndef STREAMCONVERTER_H
 #define STREAMCONVERTER_H
-#include <stream/stream.h>
+#include "../stream/stream.h"
 
 #ifdef SONYNETWORKING_EXPORTS
 #define NETAPI __declspec(dllexport)

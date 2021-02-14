@@ -141,7 +141,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>..\release\$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>C:\Users\Cyberhound\source\repos\H1Z1 Server\output_release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\csm45\source\repos\H1Z1-Server\output_release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

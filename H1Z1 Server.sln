@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LoginServer", "LoginServer\LoginServer.vcxproj", "{1168E0F0-B161-4BE1-845A-3586CD72E8E3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F6E29DA1-2A61-46CA-9151-AEE054934CA7} = {F6E29DA1-2A61-46CA-9151-AEE054934CA7}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SonyNetworking", "SonyNetworking\SonyNetworking.vcxproj", "{F6E29DA1-2A61-46CA-9151-AEE054934CA7}"
 EndProject

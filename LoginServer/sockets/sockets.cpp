@@ -149,7 +149,7 @@ void NetSocket::StartListener()
 
 bool NetSocket::SendPacket(NetReceiver to, BYTE *data, int data_size)
 {
-	if (sendto(server, (char *)data, data_size, 0, &to.sock, to.sock_len))
+	if (sendto(server, (char*)data, data_size, 0, &to.sock, to.sock_len))
 		return true;
 	return false;
 }
