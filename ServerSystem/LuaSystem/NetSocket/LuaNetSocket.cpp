@@ -79,6 +79,7 @@ struct EventUserdata
 	lua_State *L;
 	int funcRef;
 	int socketRef;
+	int eventRef;
 	int handlerIndex;
 };
 
@@ -96,7 +97,10 @@ void LuaNetSocket_EventHandler(NetSocket *net, NetReceiver &client, BYTE *data, 
 	/* Make the NetSocket userdata be marked as used */
 	lua_rawgeti(L, LUA_REGISTRYINDEX, ud->socketRef);
 	luaC_mark(L, -1);
-	lua_pop(L, 1);
+
+	lua_rawgeti(L, LUA_REGISTRYINDEX, ud->eventRef);
+	luaC_mark(L, -1);
+	lua_pop(L, 2);
 
 
 	/* Get function */
@@ -139,6 +143,7 @@ int EventHandler_Disconnect(lua_State *L)
 
 	luaL_unref(ud->L, LUA_REGISTRYINDEX, ud->funcRef);
 	luaL_unref(ud->L, LUA_REGISTRYINDEX, ud->socketRef);
+	luaL_unref(ud->L, LUA_REGISTRYINDEX, ud->eventRef);
 	if (!ud->socket || ud->socket == nullptr)
 	{
 		delete ud;
@@ -177,12 +182,13 @@ int EventConnection_GC(lua_State *L)
 
 	luaL_unref(ud->L, LUA_REGISTRYINDEX, ud->funcRef);
 	luaL_unref(ud->L, LUA_REGISTRYINDEX, ud->socketRef);
+	luaL_unref(ud->L, LUA_REGISTRYINDEX, ud->eventRef);
 	if (!ud->socket || ud->socket == nullptr)
 	{
 		delete ud;
 		return 0;
 	}
-	
+
 	ud->socket->RemoveHandler(ud->handlerIndex);
 	delete ud;
 	return 0;
@@ -225,6 +231,9 @@ int NetSocket_Event_Connect(lua_State *L)
 
 	lua_pushvalue(L, lua_upvalueindex(1));
 	ud->socketRef = luaL_ref(L, LUA_REGISTRYINDEX);
+
+	lua_pushvalue(L, -1);
+	ud->eventRef = luaL_ref(L, LUA_REGISTRYINDEX);
 
 	/* Add handler */
 	ud->handlerIndex = socket->AddHandler(LuaNetSocket_EventHandler, (void *)ud);
