@@ -90,35 +90,35 @@ void LuaStream::Unload()
 int BufferReader_ReadDword(lua_State *L)
 {
 	ByteStreamReader *buffer = (ByteStreamReader *)luaL_checkudata(L, 1, "ByteStreamReader");
-	lua_pushinteger(L, buffer->ReadDword());
+	lua_pushnumber(L, buffer->ReadDword());
 	return 1;
 }
 
 int BufferReader_ReadWord(lua_State *L)
 {
 	ByteStreamReader *buffer = (ByteStreamReader *)luaL_checkudata(L, 1, "ByteStreamReader");
-	lua_pushinteger(L, buffer->ReadWord());
+	lua_pushnumber(L, buffer->ReadWord());
 	return 1;
 }
 
 int BufferReader_ReadByte(lua_State *L)
 {
 	ByteStreamReader *buffer = (ByteStreamReader *)luaL_checkudata(L, 1, "ByteStreamReader");
-	lua_pushinteger(L, buffer->ReadByte());
+	lua_pushnumber(L, buffer->ReadByte());
 	return 1;
 }
 
 int BufferReader_ReadQword(lua_State *L)
 {
 	ByteStreamReader *buffer = (ByteStreamReader *)luaL_checkudata(L, 1, "ByteStreamReader");
-	lua_pushinteger(L, buffer->ReadQword());
+	lua_pushnumber(L, buffer->ReadQword());
 	return 1;
 }
 
 int BufferReader_ReadString(lua_State *L)
 {
 	ByteStreamReader *buffer = (ByteStreamReader *)luaL_checkudata(L, 1, "ByteStreamReader");
-	StringInterpretMode mode = (StringInterpretMode)luaL_checkinteger(L, 2);
+	StringInterpretMode mode = (StringInterpretMode)luaL_checknumber(L, 2);
 
 	std::string str = buffer->ReadString(mode);
 	lua_pushlstring(L, str.c_str(), str.size());
@@ -129,7 +129,7 @@ int BufferReader_ReadString(lua_State *L)
 int BufferReader_GetBufferSize(lua_State *L)
 {
 	ByteStreamReader *buffer = (ByteStreamReader *)luaL_checkudata(L, 1, "ByteStreamReader");
-	lua_pushinteger(L, buffer->GetBufferSize());
+	lua_pushnumber(L, buffer->GetBufferSize());
 	return 1;
 }
 
@@ -221,7 +221,7 @@ bool LuaStream::PushBuffer(BYTE *buffer, int bufferSize)
 /* Methods */
 int BufferWriter_WriteDword(lua_State *L)
 {
-	int value = luaL_checkint(L, 2);
+	int value = luaL_checknumber(L, 2);
 
 	ByteStreamWriter *buffer = (ByteStreamWriter *)luaL_checkudata(L, 1, "ByteStreamWriter");
 	buffer->WriteDword(value);
@@ -230,7 +230,7 @@ int BufferWriter_WriteDword(lua_State *L)
 
 int BufferWriter_WriteWord(lua_State *L)
 {
-	int value = luaL_checkint(L, 2);
+	int value = luaL_checknumber(L, 2);
 
 	ByteStreamWriter *buffer = (ByteStreamWriter *)luaL_checkudata(L, 1, "ByteStreamWriter");
 	buffer->WriteWord(value);
@@ -239,7 +239,7 @@ int BufferWriter_WriteWord(lua_State *L)
 
 int BufferWriter_WriteByte(lua_State *L)
 {
-	int value = luaL_checkint(L, 2);
+	int value = luaL_checknumber(L, 2);
 
 	ByteStreamWriter *buffer = (ByteStreamWriter *)luaL_checkudata(L, 1, "ByteStreamWriter");
 	buffer->WriteByte(value);
@@ -248,7 +248,7 @@ int BufferWriter_WriteByte(lua_State *L)
 
 int BufferWriter_WriteQword(lua_State *L)
 {
-	int value = luaL_checkint(L, 2);
+	int value = luaL_checknumber(L, 2);
 
 	ByteStreamWriter *buffer = (ByteStreamWriter *)luaL_checkudata(L, 1, "ByteStreamWriter");
 	buffer->WriteQword(value);
@@ -265,7 +265,7 @@ int BufferWriter_WriteString(lua_State *L)
 		const char *buf = luaL_checklstring(L, 2, &buflen);
 		value = std::string(buf, buflen);
 	}
-	StringInterpretMode mode = (StringInterpretMode)luaL_checkinteger(L, 3);
+	StringInterpretMode mode = (StringInterpretMode)luaL_checknumber(L, 3);
 
 	buffer->WriteString(value, mode);
 	return 0;
@@ -349,7 +349,7 @@ int ByteStream_New(lua_State *L)
 	if (lua_gettop(L) > 3)
 		return luaL_error(L, "Invalid use of ByteStream.New. Please refer to documentation.");
 
-	size_t bufferSize = luaL_checkint(L, 1);
+	size_t bufferSize = luaL_checknumber(L, 1);
 	BOOL bigEndian = luaL_opt(L, lua_toboolean, 2, 0);
 	BOOL autoBuffer = luaL_opt(L, lua_toboolean, 3, 1);
 

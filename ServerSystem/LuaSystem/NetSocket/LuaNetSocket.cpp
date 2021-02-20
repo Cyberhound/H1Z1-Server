@@ -33,11 +33,11 @@ int NetSocket_New(lua_State *L)
 {
 	if (lua_gettop(L) != 4)
 		return luaL_error(L, "Incorrect NetSocket.New usage. Please refer to documentation.");
-	luaL_checktype(L, 4, LUA_TBOOLEAN); //udp : boolean
+	luaL_checktype(L, 4, LUA_TBOOLEAN);
 
 	std::string host = luaL_checkstring(L, 1);
-	int port = luaL_checkinteger(L, 2);
-	int bufferSize = luaL_checkinteger(L, 3);
+	int port = luaL_checknumber(L, 2);
+	int bufferSize = luaL_checknumber(L, 3);
 	BOOL udp = lua_toboolean(L, 4);
 
 	NetSocket *socket = new NetSocket(host, port, bufferSize, udp);
