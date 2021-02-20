@@ -14,9 +14,6 @@
     <ClInclude Include="Networking\StreamConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stream\stream.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RC4\RC4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -24,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="Networking\StreamConverter.cpp" />
     <ClCompile Include="RC4\RC4.cpp" />
-    <ClCompile Include="stream\stream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SonyNetworking.def" />

@@ -6,14 +6,14 @@
 /* Networking::StreamConverter::* */
 void Networking::StreamConverter::Initialize(ByteStreamWriter &writer, BYTE *encKey, int encKeyLen)
 {
-	buffer.SetupBuffer((BYTE *)writer, writer.GetBufferSize(), writer.IsBigEndian(), writer.IsAutoBuffering());
+	buffer.SetupBuffer(writer.GetBuffer(), writer.GetBufferSize(), writer.IsBigEndian(), writer.IsAutoBuffering());
 	this->encKey = encKey;
 	this->encKeyLen = encKeyLen;
 }
 
 void Networking::StreamConverter::Initialize(ByteStreamReader &reader, BYTE *encKey, int encKeyLen)
 {
-	buffer.SetupBuffer((BYTE *)reader, reader.GetBufferSize(), reader.IsBigEndian(), reader.IsAutoBuffering());
+	buffer.SetupBuffer(reader.GetBuffer(), reader.GetBufferSize(), reader.IsBigEndian(), reader.IsAutoBuffering());
 	this->encKey = encKey;
 	this->encKeyLen = encKeyLen;
 }
@@ -41,13 +41,13 @@ Networking::StreamConverter::StreamConverter() :
 {}
 
 Networking::StreamConverter::StreamConverter(ByteStreamWriter &_writer, BYTE *_encKey, int _encKeyLen) :
-	buffer((BYTE *)_writer, _writer.GetBufferSize(), _writer.IsBigEndian(), _writer.IsAutoBuffering()),
+	buffer(_writer.GetBuffer(), _writer.GetBufferSize(), _writer.IsBigEndian(), _writer.IsAutoBuffering()),
 	encKey(_encKey),
 	encKeyLen(_encKeyLen)
 {}
 
 Networking::StreamConverter::StreamConverter(ByteStreamReader &_reader, BYTE *_encKey, int _encKeyLen) :
-	buffer((BYTE *)_reader, _reader.GetBufferSize(), _reader.IsBigEndian(), _reader.IsAutoBuffering()),
+	buffer(_reader.GetBuffer(), _reader.GetBufferSize(), _reader.IsBigEndian(), _reader.IsAutoBuffering()),
 	encKey(_encKey),
 	encKeyLen(_encKeyLen)
 {}
